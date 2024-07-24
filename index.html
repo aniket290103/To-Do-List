@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* General styles */
+        body {
+            background: linear-gradient(to right, #1e3a8a, #bfdbfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container styles */
+        .container {
+            background: linear-gradient(to right, #bfdbfe, #1e3a8a);
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
+            margin: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Title styles */
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* Input group styles */
+        .input-group {
+            display: flex;
+            margin-bottom: 16px;
+        }
+
+        input[type="text"] {
+            border: 2px solid black;
+            padding: 8px;
+            border-radius: 4px;
+            flex-grow: 1;
+            margin-right: 8px;
+        }
+
+        button {
+            background-color: #1e40af;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #60a5fa;
+        }
+
+        /* List styles */
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* Button styles */
+        .btn-delete {
+            background-color: #b91c1c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 2px solid black;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #f87171;
+        }
+
+        .btn-edit {
+            background-color: #15803d;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .btn-edit:hover {
+            background-color: #34d399;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .container {
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            input[type="text"] {
+                padding: 6px;
+            }
+
+            button {
+                padding: 6px;
+            }
+
+            li {
+                font-size: 16px;
+            }
+
+            .btn-delete,
+            .btn-edit {
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>to do list</h1>
+        <div class="input-group">
+            <input type="text" id="inp" placeholder="Enter to do">
+            <button onclick="add()">ADD TODO</button>
+        </div>
+        <ul></ul>
+    </div>
+    <script>
+        let a = [];
+
+        function add() {
+            const b = document.querySelector("#inp").value;
+            if (b) {
+                a.push(b);
+                document.querySelector("#inp").value = '';
+                show();
+            } else {
+                alert("Write something");
+            }
+        }
+
+        function show() {
+            const ul = document.querySelector("ul");
+            ul.innerHTML = '';
+
+            a.forEach((val, i) => {
+                ul.innerHTML += `<li>${val}<button onclick="deletes(${i})" class="btn-delete">DELETE</button><button onclick="edts(${i})" class="btn-edit">EDIT</button></li>`;
+            });
+        }
+
+        function deletes(i) {
+            if (confirm("Do you want to delete?")) {
+                a.splice(i, 1);
+                show();
+            }
+        }
+
+        function edts(i) {
+            const d = window.prompt("Enter new to do");
+            if (d) {
+                a[i] = d;
+                show();
+            } else {
+                alert("Write something");
+            }
+        }
+    </script>
+</body>
+
+</html>
